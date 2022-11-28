@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 10:29:32 by kristori          #+#    #+#             */
-/*   Updated: 2022/11/28 12:58:56 by kristori         ###   ########.fr       */
+/*   Created: 2022/11/28 11:54:41 by kristori          #+#    #+#             */
+/*   Updated: 2022/11/28 14:33:39 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include "libft/libft.h"
+char	**ft_parsing(char **envp)
+{
+	char	**paths;
+	int		i;
 
-int		ft_child_one(int *pipefd, int fd, char **argv, char **envp);
-int		ft_child_two(int *pipefd, int fd, char **argv, char **envp);
-char	**ft_parsing(char **envp);
-
-#endif
+	i = 0;
+	while (!ft_strnstr(envp[i], "PATH", 4))
+		i++;
+	paths = ft_split(envp[i] + 5, ':');
+	return (paths);
+}
