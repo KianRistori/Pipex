@@ -6,16 +6,16 @@
 #    By: kristori <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 10:29:34 by kristori          #+#    #+#              #
-#    Updated: 2022/11/28 11:54:38 by kristori         ###   ########.fr        #
+#    Updated: 2022/11/29 13:10:52 by kristori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-SRC = main.c parsing.c
+SRC = main.c parsing.c utils.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = @libft/Makefile
-FLAGS =
+FLAGS = -Wall -Werror -Wextra
 LIB = libft/libft.a
 
 NONE='\033[0m'
@@ -36,7 +36,6 @@ $(LIBFT):
 	@echo $(CURSIVE)$(GRAY) "     - Compiling Libft ..."
 	@make -s -C libft
 	@echo $(GREEN)"- Libft ready -"
-
 
 $(OBJ): $(SRC)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
