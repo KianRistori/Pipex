@@ -6,12 +6,11 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:54:41 by kristori          #+#    #+#             */
-/*   Updated: 2022/11/29 13:10:38 by kristori         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:23:24 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "stdio.h"
 
 char	**ft_get_paths(char **envp)
 {
@@ -49,5 +48,6 @@ char	*ft_path(char *cmd, char **envp)
 		}
 		free(path);
 	}
+	ft_free(paths);
 	return (0);
 }
