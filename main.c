@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:29:19 by kristori          #+#    #+#             */
-/*   Updated: 2022/11/30 15:23:31 by kristori         ###   ########.fr       */
+/*   Updated: 2022/12/01 10:30:40 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int	main(int argc, char **argv, char **envp)
 			ft_child_two(pipefd, fd[1], argv, envp);
 	}
 	else
+	{
 		write(2, "Error argv\n", 11);
+		return (1);
+	}
+	return (1);
 }
 
 void	ft_child_one(int *pipefd, int fd, char **argv, char **envp)
