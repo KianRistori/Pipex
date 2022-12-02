@@ -6,12 +6,12 @@
 #    By: kristori <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 10:29:34 by kristori          #+#    #+#              #
-#    Updated: 2022/11/30 15:22:33 by kristori         ###   ########.fr        #
+#    Updated: 2022/12/02 12:28:46 by kristori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-SRC = main.c parsing.c utils.c
+SRC = main.c parsing.c utils.c check.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = @libft/Makefile
