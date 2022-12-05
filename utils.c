@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:45:00 by kristori          #+#    #+#             */
-/*   Updated: 2022/12/02 12:28:38 by kristori         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:12:30 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	ft_check_split(char **cmd)
 	j = 1;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == 39)
+		if (ft_strchr(cmd[i], '{'))
 		{
-			while (cmd[j][ft_strlen(cmd[j]) - 1] != 39)
+			while (!ft_strchr(cmd[j], '}'))
 			{
 				cmd[i] = ft_strjoin(cmd[i], " ");
 				cmd[i] = ft_strjoin(cmd[i], cmd[j]);
@@ -73,9 +73,32 @@ void	ft_check_split(char **cmd)
 			}
 			cmd[i] = ft_strjoin(cmd[i], " ");
 			cmd[i] = ft_strjoin(cmd[i], cmd[j]);
-			ft_remove_char(cmd[i], 39);
 		}
 		j++;
+		i++;
+	}
+	ft_check_split2(cmd);
+}
+
+void	ft_check_split2(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if ((cmd[i][0] == 39) && (cmd[i][1] == '"'))
+		{
+			cmd[i - 1] = ft_strdup("cat");
+			cmd[i] = 0;
+		}
+		else if ((cmd[i][0] != '"') && (cmd[i][1] != 39))
+		{
+			ft_remove_char(cmd[i], 39);
+			ft_remove_char(cmd[i], 34);
+		}
+		else
+			ft_remove_char(cmd[i], '"');
 		i++;
 	}
 }

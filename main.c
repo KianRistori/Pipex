@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:29:19 by kristori          #+#    #+#             */
-/*   Updated: 2022/12/02 12:26:30 by kristori         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:16:34 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ void	ft_child_one(int *pipefd, int *fd, char **argv, char **envp)
 	char	*path;
 	int		i;
 
+	i = 2;
 	ft_check_fd1(fd, argv);
 	dup2(fd[0], STDIN_FILENO);
-	dup2(pipefd[1], STDOUT_FILENO);
-	close(pipefd[0]);
-	i = 2;
 	while (i < fd[2] - 2)
 	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
 		cmd = ft_split(argv[i], ' ');
 		ft_check_split(cmd);
 		path = ft_path(cmd[0], envp);
