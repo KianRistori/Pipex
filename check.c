@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 12:28:13 by kristori          #+#    #+#             */
-/*   Updated: 2022/12/05 15:33:52 by kristori         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:44:09 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_check_fd1(int *fd, char **argv)
 
 void	ft_check_fd2(int *fd, char **argv)
 {
-	fd[1] = open(argv[fd[2] - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd[1] = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd[1] < 0)
 	{
 		perror("pipex: input");

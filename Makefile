@@ -6,7 +6,7 @@
 #    By: kristori <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 10:29:34 by kristori          #+#    #+#              #
-#    Updated: 2022/12/02 12:28:46 by kristori         ###   ########.fr        #
+#    Updated: 2022/12/06 11:37:02 by kristori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,6 @@ $(LIBFT):
 $(OBJ): $(SRC)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
 	@gcc $(FLAGS) -c $(SRC)
-
-exe: all
-	@echo "     - Executing $(NAME)... \n"
-	@./$(NAME)
-	@echo "\n     - Done -"
 
 clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)

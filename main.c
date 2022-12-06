@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:29:19 by kristori          #+#    #+#             */
-/*   Updated: 2022/12/05 16:16:34 by kristori         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:43:56 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	pid_t	pid;
 	int		pipefd[2];
-	int		fd[3];
+	int		fd[2];
 
-	if (argc >= 5)
+	if (argc == 5)
 	{
-		fd[2] = argc;
 		if (pipe(pipefd) < 0)
 			perror("Error");
 		pid = fork();
@@ -40,29 +39,22 @@ void	ft_child_one(int *pipefd, int *fd, char **argv, char **envp)
 {
 	char	**cmd;
 	char	*path;
-	int		i;
 
-	i = 2;
 	ft_check_fd1(fd, argv);
 	dup2(fd[0], STDIN_FILENO);
-	while (i < fd[2] - 2)
+	dup2(pipefd[1], STDOUT_FILENO);
+	close(pipefd[1]);
+	cmd = ft_split(argv[2], ' ');
+	ft_check_split(cmd);
+	path = ft_path(cmd[0], envp);
+	if (cmd[0] && path)
 	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		cmd = ft_split(argv[i], ' ');
-		ft_check_split(cmd);
-		path = ft_path(cmd[0], envp);
-		if (cmd[0] && path)
-		{
-			execve(path, cmd, envp);
-			ft_free(cmd);
-			free(path);
-		}
-		else
-			ft_cmd_not_found(cmd);
-		i++;
+		execve(path, cmd, envp);
+		ft_free(cmd);
+		free(path);
 	}
+	else
+		ft_cmd_not_found(cmd);
 }
 
 void	ft_child_two(int *pipefd, int *fd, char **argv, char **envp)
@@ -74,7 +66,7 @@ void	ft_child_two(int *pipefd, int *fd, char **argv, char **envp)
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[1]);
-	cmd = ft_split(argv[fd[2] - 2], ' ');
+	cmd = ft_split(argv[3], ' ');
 	ft_check_split(cmd);
 	path = ft_path(cmd[0], envp);
 	if (cmd[0] && path)
