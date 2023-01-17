@@ -6,7 +6,7 @@
 /*   By: kristori <kristori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:59:25 by kristori          #+#    #+#             */
-/*   Updated: 2023/01/16 15:34:46 by kristori         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:16:56 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,26 @@ void	ft_here_doc(char *limiter, int argc)
 	int		fd[2];
 	char	*line;
 
-	if (argc >= 5)
+	if (argc < 6)
+		return ;
+	if (pipe(fd) == -1)
+		ft_error();
+	reader = fork();
+	if (reader == 0)
 	{
-		if (pipe(fd) == -1)
-			ft_error();
-		reader = fork();
-		if (reader == 0)
+		close(fd[0]);
+		while (get_next_line(&line))
 		{
-			close(fd[0]);
-			while (get_next_line(&line))
-			{
-				if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-					exit(EXIT_SUCCESS);
-				write(fd[1], line, ft_strlen(line));
-			}
+			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+				exit(EXIT_SUCCESS);
+			write(fd[1], line, ft_strlen(line));
 		}
-		else
-		{
-			close(fd[1]);
-			dup2(fd[0], STDIN_FILENO);
-			wait(NULL);
-		}
+	}
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		wait(NULL);
 	}
 }
 
@@ -92,7 +91,5 @@ int	main(int argc, char **argv, char **envp)
 		dup2(file_out, STDOUT_FILENO);
 		ft_execute(argv[argc - 2], envp);
 	}
-	else
-		return (1);
 	return (0);
 }

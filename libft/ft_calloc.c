@@ -6,7 +6,7 @@
 /*   By: kristori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:44:06 by kristori          #+#    #+#             */
-/*   Updated: 2022/10/05 15:29:42 by kristori         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:20:36 by kristori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int		i;
-	void	*ris;
+	void	*newarr;
+	size_t	x;
 
-	i = nmemb * size;
-	if (nmemb != 0 && i / nmemb != size)
+	x = nmemb * size;
+	if (nmemb != 0 && x / nmemb != size)
 		return (NULL);
-	if (nmemb == 0 || size == 0)
+	newarr = (void *)malloc(x);
+	if (!newarr)
 		return (NULL);
-	ris = malloc(nmemb * size);
-	ft_memset(ris, 0, (nmemb * size));
-	return (ris);
+	ft_bzero(newarr, x);
+	return (newarr);
 }
